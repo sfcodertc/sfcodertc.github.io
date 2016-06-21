@@ -1,0 +1,84 @@
+body {
+    width:100%;
+    margin:auto;
+    background-color:#4db8ff;
+}
+
+.container {
+    width:80%;
+    margin: 0 auto;
+}
+
+.header {
+    background:#33cc33;
+    width: 100%;
+    height:100px;
+    top: 0;
+    position:relative;
+    border-radius:30px 30px 30px 30px;
+}
+
+.menu {
+    float:right;
+    font-family: 'Titillium Web', sans-serif;
+    
+}
+
+.logo {
+    float:left;
+    font-family:'Montserrat', sans-serif;
+    padding-top:15px;
+    padding-left:30%;
+}
+
+a {
+    text-decoration:none;
+}
+
+a:link {
+    color:white;
+}
+
+a:hover {
+    color:red;
+}
+
+a:active {
+    color:green;
+}
+
+a:visited {
+    color:white;
+}
+
+li {
+    list-style:none;
+    float:left;
+    margin-left:15px;
+}
+
+.bodyshape {
+    background-color:#006600;
+    border-radius:30px 30px 30px 30px;
+    height:100%;
+    padding-top:80px;
+}
+
+.gameText {
+    color:#006699;
+}
+
+.gameNames {
+    background-color:#00e600;
+    border-radius:30px 30px 30px 30px;
+    text-align:center;
+    height:140px;
+    width:300px;
+    margin:0 auto;
+    font-family: 'Roboto', sans-serif;
+}
+
+.games {
+    font-size:17px;
+    color:#3366ff;
+}

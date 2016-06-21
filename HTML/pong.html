@@ -1,0 +1,325 @@
+
+<html>
+    
+    <head>
+        <link rel="stylesheet" href="../CSS/pong.css">
+        <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script>
+        <link href='https://fonts.googleapis.com/css?family=Roboto:400italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Titillium+Web:600' rel='stylesheet' type='text/css'>
+    </head>
+    
+    <title>Tome3</title>
+    
+    <body>
+        
+        <div class="header" text-align="left">
+            
+            <div class="container">
+            
+                <div class="logo">
+                    <h1>
+                        <a href="index.html">Tome3</a>
+                    <h1>
+                </div>
+                <div class="menu">
+`                   <ul>
+                        <li>
+                            <a href="index.html">Home</a>
+                        </li>
+                    
+                        <li>
+                            <a href="about.html">About</a>
+                        </li>
+                    
+                        <li>
+                            <a href="Game.html">Games</a>
+                        </li>
+                        
+                        <li>
+                            <a href="Challenges.html">Gallery</a>
+                        </li>
+                    </ul>
+                </div>
+                            
+            </div>
+            
+        </div>
+        
+        <div class="bodyshape">
+            <div class="gameName">
+                <div class="text">
+                    <h1>Pong:</h1>                    
+                </div>
+            </div>
+            
+            <div class="pongGame">
+                   <p align="center"> 
+     
+                    <canvas id="mycanvas"></canvas> 
+                        
+                    </p>
+                    
+                    <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script> 
+                    
+                    <script>
+                      
+                    var sketchProc = function(processingInstance) {
+                    with (processingInstance) {
+                            
+                    size(500, 500); 
+                            
+                    frameRate(0);
+                    
+                    var playing;
+                    var up;
+                    var down;
+                    var up2;
+                    var down2;
+                    var players;
+                    var ball;
+                    var ballspd;
+                    var score1 = 0;
+                    var score2 = 0;
+                    
+                    var setup = function() {
+                      playing = false;
+                      
+                      up = false;
+                      down = false;
+                      up2 = false;
+                      down2 = false;
+                      
+                      players = [
+                                  {x: 50, y: 250, w: 25, h: 150, lose: false},
+                                  {x: 440, y: 250, w: 25, h: 150, lose: false}
+                                ];
+                      
+                      ball = [
+                              {x: 250, y: 250, w: 25, h: 25, movex: 'left', movey: 0}
+                             ];
+                                  
+                      ballspd = 0.5;
+                    
+                      draw();
+                    };
+                    
+                    var draw = function() {
+                      background(0);
+                      noStroke();
+                      drawPlayers();
+                      drawBall();
+                      collisionBall();
+                      displayScore();
+                      if (players[0].lose === true || players[1].lose === true) return;
+                      move(players, 0.7);
+                      moveBall();
+                    };
+                    
+                    var collision = function(obj1, obj2) {
+                      if (obj1.x + obj1.w > obj2.x &&
+                      obj1.x < obj2.x + obj2.w &&
+                      obj2.y + obj2.h > obj1.y &&
+                      obj2.y < obj1.y + obj1.h) {
+                        return true;
+                      } else {
+                        return false;
+                      }
+                    };
+                    
+                    var drawPlayers = function() {
+                      fill(102, 102, 102);
+                      
+                      for (var i = 0; i < players.length; i++) {
+                        rect(players[i].x, players[i].y, players[i].w, players[i].h);
+                      }
+                    };
+                    
+                    var drawBall = function() {
+                      if (!playing) return;
+                      
+                      for (var i = 0; i < ball.length; i++) {
+                        fill(255, 255, 0);
+                        ellipse(ball[i].x, ball[i].y, ball[i].w, ball[i].h);
+                      }
+                    };
+                    
+                    var move = function(obj, spd) {
+                      if (up === true) {
+                        obj[0].y -= spd;
+                        
+                        if (obj[0].y <= 0) {
+                          obj[0].y += spd;
+                        }
+                      }
+                      if (down === true) {
+                        obj[0].y += spd;
+                        
+                        if (obj[0].y >= 500 - 150) {
+                          obj[0].y -= spd;
+                        }
+                      }
+                      if (up2 === true) {
+                        obj[1].y -= spd;
+                        
+                        if (obj[1].y <= 0) {
+                          obj[1].y += spd;
+                        }
+                      }
+                      if (down2 === true) {
+                        obj[1].y += spd;
+                        
+                        if (obj[1].y >= 500 - 150) {
+                          obj[1].y -= spd;
+                        }
+                      }
+                    };
+                    
+                    var keyPressed = function() {
+                      if (keyCode == UP) {
+                        up2 = true;
+                      } if (keyCode == DOWN) {
+                        down2 = true;
+                      }
+                      if (keyCode == 87) {
+                        up = true;
+                      } 
+                      if (keyCode == 83) {
+                        down = true;
+                      }
+                      if (keyCode == 80 && !playing) {
+                        playing = true;
+                      }
+                      for (var i = 0; i < players.length; i++) {
+                        if (keyCode == 82 && players[i].lose === true) {
+                          setup();
+                        }
+                      }
+                    };
+                    
+                    var keyReleased = function() {
+                      if (keyCode == UP) {
+                        up2 = false;
+                      } if (keyCode == DOWN) {
+                        down2 = false;
+                      }
+                      if (keyCode == 87) {
+                        up = false;
+                      } 
+                      if (keyCode == 83) {
+                        down = false;
+                      }
+                    };
+                    
+                    var moveBall = function() {
+                      if (!playing) return;
+                      
+                      for (var i = 0; i < ball.length; i++) {
+                        if (ball[i].movex === 'right') {
+                            ball[i].x += ballspd;
+                            ball[i].y += ball[i].movey;
+                            ballspd += 0.0005;
+                        } 
+                        if (ball[i].movex === 'left') {
+                            ball[i].x -= ballspd;
+                            ball[i].y += ball[i].movey;
+                            ballspd += 0.0005;
+                        }
+                        if (collision(players[0], ball[i])) {
+                          ball[i].movex = 'right';
+                          ball[i].movey = random(-1, 1);
+                        }
+                        if (collision(players[1], ball[i])) {
+                          ball[i].movex = 'left';
+                          ball[i].movey = random(-1, 1);
+                        }
+                        if (ball[i].y <= 0 || ball[i].y >= 500) {
+                          ball[i].movey = ball[i].movey * -1;
+                        }
+                      }
+                    };
+                    
+                    var collisionBall = function() {
+                      for (var i = 0; i < ball.length; i++) {
+                        for (var j = 0; j < players.length; j++) {
+                          if (ball[i].x <= 0) {
+                            players[1].lose = true;
+                            score2 += 1;
+                            ball[i].x = 250;
+                            ball[i].y = 250;
+                          }
+                          if (ball[i].x >= 475) {
+                            players[0].lose = true;
+                            score1 += 1;
+                            ball[i].x = 250;
+                            ball[i].y = 250;
+                          }
+                          
+                          if (players[j].lose === true) {
+                            loseMessage();
+                          }
+                    
+                        }
+                      }
+                      
+                    };
+                    
+                    var loseMessage = function() {
+                      if (players[0].lose === true) {
+                        fill(0, 170, 255);
+                        rect(0, 250, 500, 100);
+                        fill(255);
+                        textSize(20);
+                        text("Left Player Wins!", 225, 300);
+                      }
+                      
+                      if (players[1].lose === true) {    
+                        fill(0, 170, 255);
+                        rect(0, 250, 500, 100);
+                        fill(255);
+                        textSize(20);
+                        text("Right Player Wins!", 225, 300);
+                      }
+                    
+                    };
+                    
+                    var displayScore = function() {
+                      fill(255);
+                      textSize(40);
+                      text("Wins:", 205, 50);
+                      text(score1, 150, 100);
+                      text(score2, 315, 100);
+                    };
+
+                    }};  
+                        
+                    var canvas = document.getElementById("mycanvas"); 
+                    var processingInstance = new Processing(canvas, sketchProc); 
+                    
+                    </script>
+
+            </div>
+            
+            <div class="description">
+                <p>This is a multiplayer game where</p>
+                <p> you have to prevent three balls to touch your edge by blocking it with your rectangle/paddle.</p>
+                <p> For example, if you're the left player,</p>
+                <p> you have to prevent it from going to your side (left).</p>
+                <p> If you do, than your opponent wins.</p>
+                <h4>Controls:</h4>
+                <p>If your the first player, (left player) your controls are W (Up) and S (Down).</p>
+                <p>And second player, (right player) your controls are Up Arrow (Up) and Down Arrow (Down).</p>
+                <p>When you're ready press P</p>
+                <p>After one of you wins, press R and then P again.</p>
+                <h4>Score:</h4>
+                <p>Your score on the top left/right means how many times you won.</p>
+                <p>Bigger score, then better you two are.</p>
+                <h4>Ball Speed:</h4>
+                <p>The ball speed will only get effected when you block a ball.</p>
+                <p>Good Luck beating your score!</p>
+            </div>
+            
+        </div>
+    </body>
+    
+</html>

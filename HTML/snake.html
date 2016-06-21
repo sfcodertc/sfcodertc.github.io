@@ -1,0 +1,342 @@
+<html>
+    
+    <head>
+        <link rel="stylesheet" href="../CSS/snake.css">
+        <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script>
+        <link href='https://fonts.googleapis.com/css?family=Roboto:400italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Titillium+Web:600' rel='stylesheet' type='text/css'>
+    </head>
+    
+    <title>Tome3</title>
+    
+    <body>
+        
+        <div class="header" text-align="left">
+            
+            <div class="container">
+            
+                <div class="logo">
+                    <h1>
+                        <a href="index.html">Tome3</a>
+                    <h1>
+                </div>
+                <div class="menu">
+`                   <ul>
+                        <li>
+                            <a href="index.html">Home</a>
+                        </li>
+                    
+                        <li>
+                            <a href="about.html">About</a>
+                        </li>
+                    
+                        <li>
+                            <a href="Game.html">Games</a>
+                        </li>
+                        
+                        <li>
+                            <a href="Challenges.html">Gallery</a>
+                        </li>
+                    </ul>
+                </div>
+                            
+            </div>
+            
+        </div>
+        
+        <div class="bodyshape">
+            <div class="gameName">
+                <div class="text">
+                    <h1>Snake:</h1>                    
+                </div>
+            </div>
+            
+            <div class="snakeGame">
+                   <p align="center"> 
+     
+                    <canvas id="mycanvas"></canvas> 
+                        
+                    </p>
+                    
+                    <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script> 
+                    
+                    <script>
+                      
+                    var sketchProc = function(processingInstance) {
+                         
+                    with (processingInstance) {
+                            
+                    size(500, 500); 
+                            
+                    frameRate(0);
+                    
+                    var gridSize = 20;
+                    var snake;
+                    var newDir;
+                    var timer;
+                    var tickSpeed;
+                    var apple;
+                    var score;
+                    var crashed;
+                    var paused;
+                    var tickSpeed;
+                    var landmine;
+                    
+                    var setup = function() {
+                      newDir = "right";
+                      timer = millis();
+                      tickSpeed = 50;
+                      score = 0;
+                      textSize(32);
+                      crashed = false;
+                      paused = false;
+                      
+                      apple = {
+                        x: floor(random(0, width / gridSize)) * gridSize + 10,
+                        y: floor(random(5, height / gridSize)) * gridSize + 10
+                      };
+                      
+                      snake = {
+                        dir: "right",
+                      
+                    
+                        x: 225,
+                        y: 225,
+                        
+                        tail: [
+                          {x: 165, y: 225},
+                          {x: 185, y: 225},
+                          {x: 205, y: 225}
+                        ]
+                      };
+                      
+                      landmine = {
+                        x: floor(random(0, width / gridSize)) * gridSize + 10,
+                        y: floor(random(5, height / gridSize)) * gridSize + 10
+                      };
+                      
+                      draw();
+                    };
+                    
+                    var draw = function() {
+                      
+                      if (paused) return;
+                      
+                      if (millis() - timer >= tickSpeed) {
+                        background(0);
+                        snake.dir = newDir;
+                        if(!crashed) {
+                          moveSnake();
+                        }
+                        drawSnake();
+                        crashCheck();
+                        drawApple();
+                        drawScore();
+                        eatApple();
+                        drawLandmines();
+                        timer = millis();
+                      }
+                    };
+                    
+                    var drawSnake = function() {
+                      fill(255, 255, 0);
+                      ellipse(snake.x, snake.y, gridSize, gridSize);
+                      
+                      for(var i = 0; i < snake.tail.length; i++) {
+                        fill(0, 255, 0);
+                        ellipse(snake.tail[i].x, snake.tail[i].y, gridSize, gridSize);
+                      }
+                    };
+                    
+                    var moveSnake = function() {
+                      snake.tail.push({x: snake.x, y: snake.y});
+                      
+                      if(snake.dir === "right") {
+                        snake.x = snake.x + gridSize;
+                      } else if (snake.dir === "left") {
+                        snake.x = snake.x - gridSize;
+                      } else if (snake.dir === "up") {
+                        snake.y = snake.y - gridSize;
+                      } else if (snake.dir === "down") {
+                        snake.y = snake.y + gridSize;
+                      }
+                      
+                      wrap();
+                      snake.tail.splice(0, 1);
+                    };
+                    
+                    var keyPressed = function() {
+                      if (keyCode === RIGHT && snake.dir !== "left") {
+                        newDir = "right";
+                      }
+                      if (keyCode === LEFT && snake.dir !== "right") {
+                        newDir = "left";
+                      }
+                      if (keyCode === UP && snake.dir !== "down") {
+                        newDir = "up";
+                      }
+                      if (keyCode === DOWN && snake.dir !== "up") {
+                        newDir = "down";
+                      }
+                      if (keyCode === 82 && crashed) {
+                        setup();
+                      }
+                      if (keyCode === 80 && !crashed) {
+                        if (paused) {
+                          paused = false;
+                        } else {
+                          paused = true;
+                          fill(30, 30, 30);
+                          rect(width / 2 - 100, height / 2 - 50, 200, 100);
+                          fill(0, 255, 0);
+                          text("PAUSED", width / 3, height / 2);
+                        }
+                      }
+                      if (keyCode === 16 && !crashed && !paused && score !== 0) {
+                        tickSpeed += 0.3;
+                        score -= 1;
+                      }
+                    };
+                    
+                    var wrap = function() {
+                      if (snake.x > width) {
+                        snake.x -= width;
+                      } else if (snake.x < 0) {
+                        snake.x += width;
+                      } else if (snake.y > height) {
+                        snake.y -= height;
+                      } else if (snake.y < 0) {
+                        snake.y += height;
+                      }
+                    };
+                    
+                    var drawApple = function() {
+                      fill(255, 0, 0);
+                      ellipse(apple.x, apple.y, gridSize, gridSize);
+                    
+                    };
+                    
+                    var drawScore = function() {
+                      fill(255);
+                      stroke(0);
+                      text(score, 225, 30);
+                    };
+                    
+                    var collision = function(obj1, obj2) {
+                      if (obj1.x + gridSize > obj2.x &&
+                      obj1.x < obj2.x + gridSize &&
+                      obj2.y + gridSize > obj1.y &&
+                      obj2.y < obj1.y + gridSize) {
+                        return true;
+                      } else {
+                        return false;
+                      }  
+                    };
+                    
+                    var eatApple = function() {
+                      if (collision(snake, apple)) {
+                        snake.tail.push({x: snake.x, y: snake.y});
+                        score++;
+                        tickSpeed -= 0.5;
+                        moveApple();
+                        moveLandmines();
+                      }
+                    };
+                    
+                    var moveApple = function() {
+                      apple.x = floor(random(0, width / gridSize)) * gridSize + 10;
+                      apple.y = floor(random(5, height / gridSize)) * gridSize + 10;
+                    
+                      for(var i = 0; i < snake.tail.length; i++) {
+                        if(apple.x === snake.tail[i].x && apple.y === snake.tail[i].y) {
+                          moveApple();
+                        }
+                      }
+                    };
+                    
+                    var crashCheck = function() {
+                      for (var i = 0; i < snake.tail.length; i++) {
+                        if (collision(snake, snake.tail[i])) {
+                          crashed = true;
+                          fill(255, 255, 0);
+                          ellipse(snake.x, snake.y, gridSize, gridSize);
+                          stroke(255, 0, 0);
+                          strokeWeight(4);
+                          line(snake.x - 10, snake.y - 10, snake.x + 10, snake.y + 10);
+                          line(snake.x - 10, snake.y + 10, snake.x + 10, snake.y - 10);
+                          strokeWeight(0);
+                        }
+                      }
+                      
+                      if (score >= 5) {
+                        if (collision(snake, landmine)) {
+                          crashed = true;
+                          fill(255, 255, 0);
+                          ellipse(snake.x, snake.y, gridSize, gridSize);
+                          stroke(255, 0, 0);
+                          strokeWeight(4);
+                          line(snake.x - 10, snake.y - 10, snake.x + 10, snake.y + 10);
+                          line(snake.x - 10, snake.y + 10, snake.x + 10, snake.y - 10);
+                          strokeWeight(0);
+                        }    
+                      }
+                    
+                    };
+                    
+                    var drawLandmines = function() {
+                      if (score >= 5) {
+                        fill(255, 255, 0);
+                        ellipse(landmine.x, landmine.y, gridSize, gridSize);
+                    
+                        checkLandmines();   
+                      }
+                    };
+                    
+                    var moveLandmines = function() {
+                      landmine.x = floor(random(0, width / gridSize)) * gridSize + 10;
+                      landmine.y = floor(random(5, height / gridSize)) * gridSize + 10;
+                    
+                      checkLandmines();
+                    };
+                    
+                    var checkLandmines = function() {
+                      for (var i = 0; i < snake.tail.length; i++) {
+                        if (collision(apple, landmine) 
+                        || collision(snake.tail[i], 
+                        landmine)) {
+                          moveLandmines();
+                        }    
+                      }
+                    };
+
+                    }};  
+                        
+                    var canvas = document.getElementById("mycanvas"); 
+                    var processingInstance = new Processing(canvas, sketchProc); 
+                    
+                    </script>
+
+            </div>
+            
+            <div class="description">
+                <p>This is a game where you have to eat apples</p>
+                <p> to grow longer and have to eat as much apples as you can.</p>
+                <p> When you eat an apple, you grow faster and longer.</p>
+                <p>On the top says how much apples you've eaten.</p>
+                <h4>Controls:</h4>
+                <p>Press UP to go up, press DOWN to go down, etc.</p>
+                <p>You can also press P to pause the game and lastly,</p>
+                <p>SHIFT if you're in tough spaces to slow down.</p>
+                <p>You WILL slow down BUT you'll lose a point (apple).</p>
+                <h4>Obstacles:</h4>
+                <p>If you don't know the normal game, you can't hit your tail.</p>
+                <p>But also on level 5, LANDMINES will appear and will be yellow and you also can't hit them.</p>
+                <p>But if you hit one of them or your tail, you die.</p>
+                <p>After that, you can press R to restart.</p>
+            </div>
+            
+        </div>
+    </body>
+    
+</html>
