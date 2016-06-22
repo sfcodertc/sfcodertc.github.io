@@ -44,6 +44,10 @@ a:link {
     color:white;
 }
 
+a:visited {
+    color:white;
+}
+
 a:hover {
     color:red;
 }
@@ -52,9 +56,6 @@ a:active {
     color:green;
 }
 
-a:visited {
-    color:white;
-}
 
 li {
     list-style:none;
