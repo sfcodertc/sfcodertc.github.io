@@ -86,12 +86,19 @@ li {
 }
 
 .challenge1 {
-    margin-left:10%;
+    margin-right: 20%;
     margin-top:2%;
+    width:auto;
+    height:auto;
+}
+
+.challenge1 a{
+    text-align:center;
+    display:block;
 }
 
 .challenge {
-    width:20%;
+    width:30%;
     height:50%;
     border-radius:30px 30px 30px 30px;
 }
