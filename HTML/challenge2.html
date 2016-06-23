@@ -1,0 +1,103 @@
+<html>
+    
+    <head>
+        <link rel="stylesheet" href="../CSS/Challenge1.css">
+        <link href='https://fonts.googleapis.com/css?family=Roboto:400italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Titillium+Web:600' rel='stylesheet' type='text/css'>
+    </head>
+    
+    <title>Tome3</title>
+    
+    <body>
+        
+        <div class="header" text-align="left">
+            
+            <div class="container">
+            
+                <div class="logo">
+                    <h1>
+                        <a href="../index.html">Tome3</a>
+                    <h1>
+                </div>
+                <div class="menu">
+`                   <ul>
+                        <li>
+                            <a href="../index.html">Home</a>
+                        </li>
+                    
+                        <li>
+                            <a href="about.html">About</a>
+                        </li>
+                    
+                        <li>
+                            <a href="Game.html">Games</a>
+                        </li>
+                        
+                        <li>
+                            <a href="Challenges.html">Gallery</a>
+                        </li>
+                    </ul>
+                </div>
+                            
+            </div>
+            
+        </div>
+        
+        <div class="bodyShape">
+            <div class="text">
+                <h3>Cool Stuff: (Name goes here)</h3>
+            </div>
+            
+            <div class="challenge">
+                <p align="center">
+                    <canvas id="mycanvas"></canvas>
+                </p>
+
+                <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script>
+
+                <script>
+                    var sketchProc(processingInstance) {
+                        with (processingInstance) {
+
+                        size(500, 500);
+                        frameRate(0);
+
+                        var y = 400;
+                        var sSize= 200;
+                        var dir = 1;
+                        var backgroundColor = 0;
+
+                        var draw = function() {
+                          background(backgroundColor);
+                          if (y > 400 || y < 0) {
+                            dir = dir * -1;
+                          }
+                          if (dir == 1) {
+                            y++;
+                            sSize += 0.5;
+                            stroke(y,y,y);
+                          }
+                          if (dir == -1) {
+                            y--;
+                            sSize -= 0.5;
+                            stroke(y,y,y);
+                          }
+                          stroke();
+                          
+                          ellipse(250, y, sSize, sSize);
+                          
+                          if (backgroundColor <= 180) {
+                            backgroundColor += 1;
+                          } else {
+                            backgroundColor = 0;
+                          }
+                        };
+
+                        var canvas = getElementById("mycanvas");
+                        var processingInstance = new Processing(canvas, sketchProc);
+                    }}
+                </script>
+            </div>
+        </div>
+</html>
