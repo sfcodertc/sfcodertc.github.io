@@ -64,7 +64,7 @@ li {
 }
 
 .bodyShape {
-    background:#08330B;
+    background:# 08330B;
     border-radius:30px 30px 30px 30px;
     height:100%;
     padding:1px;
@@ -103,3 +103,21 @@ li {
     height:50%;
     border-radius:30px 30px 30px 30px;
 }
+
+.challenge2 {
+    margin-top:2%;
+    width:auto;
+    height:auto;
+}
+
+.challenge2 a{
+    text-align:center;
+    display:block;
+}
+
+.challenge2 {
+    width:40%;
+    height:70%;
+    border-radius:30px 30px 30px 30px;
+}
+
