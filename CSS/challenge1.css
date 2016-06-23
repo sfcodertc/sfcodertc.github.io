@@ -64,17 +64,6 @@ li {
     padding-top:1px;
 }
 
-.gameName {
-    background:#009999;
-    border-radius:30px 30px 30px 30px;
-    width:30%;
-    padding-top:50px;
-    height:10%;
-    position:relative;
-    margin:10 auto;
-    margin-left:14%;
-}
-
 .text {
     background:#666600;
     color:#00cc00;
