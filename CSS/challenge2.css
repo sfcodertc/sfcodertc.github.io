@@ -1,0 +1,93 @@
+body {
+    background-color:#4db8ff;
+    width:100%;
+    margin:auto;
+}
+
+.container {
+    width:80%;
+    margin: 0 auto;
+}
+
+
+.header {
+    background:#33cc33;
+    width: 100%;
+    height:100px;
+    top: 0;
+    position:relative;
+    border-radius:30px 30px 30px 30px;
+}
+
+.menu {
+    float:right;
+    font-family: 'Titillium Web', sans-serif;
+}
+
+.logo {
+    float:left;
+    font-family:'Montserrat', sans-serif;
+    padding-top:13px;
+    padding-left:30%;
+}
+
+a {
+    text-decoration:none;
+}
+
+a:link {
+    color:white;
+}
+
+a:visited {
+    color:white;
+}
+
+a:hover {
+    color:red;
+}
+
+a:active {
+    color:green;
+}
+
+li {
+    list-style:none;
+    float:left;
+    margin-left:15px;
+}
+
+.bodyshape {
+    background:#006600;
+    border-radius:30px 30px 30px 30px;
+    height:100%;
+    padding-top:1px;
+}
+
+.gameName {
+    background:#009999;
+    border-radius:30px 30px 30px 30px;
+    width:30%;
+    padding-top:50px;
+    height:10%;
+    position:relative;
+    margin:10 auto;
+    margin-left:14%;
+}
+
+.text {
+    background:#666600;
+    color:#00cc00;
+    text-align:center;
+    position:relative;
+    font-family: 'Roboto', sans-serif;
+}
+
+.challenge {
+    border: 3px solid #ffffff;
+    background:#000000;
+    border-radius:40px 40px 40px 40px;
+    width:540px;
+    margin-left:14%;
+    height:540px;
+}
