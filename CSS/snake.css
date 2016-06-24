@@ -57,14 +57,14 @@ li {
 }
 
 .bodyshape {
-    background:#08330B;
+    background:#437E47;
     border-radius:30px 30px 30px 30px;
     height:100%;
     padding-top:1px;
 }
 
 .gameName {
-    background:#437E47;
+    background:#08330B;
     border-radius:30px 30px 30px 30px;
     width:30%;
     padding-top:50px;
@@ -83,9 +83,9 @@ li {
 }
 
 .description {
-    color:#437E47;
+    color:#092D0B;
     font-family: 'Roboto', sans-serif;
-    background:#092D0B;
+    background:#437E47;
     border-radius:30px 0px 0px 30px;
     width:30%;
     position:relative;
