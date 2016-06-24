@@ -34,6 +34,7 @@ body {
 a {
     text-decoration:none;
 }
+
 a:link {
     color:white;
 }
@@ -94,9 +95,7 @@ li {
     text-align:center;
     bottom:60%;
     overflow:auto;
-    margin-right:100%;
 }
-
 
 .snakeGame {
     border: 3px solid #ffffff;
