@@ -87,8 +87,8 @@ li {
 }
 
 .challenge1 {
-    margin-right: 20%;
-    margin-top:2%;
+    right: 20%;
+    top:2%;
     width:auto;
     height:auto;
 }
@@ -105,8 +105,8 @@ li {
 }
 
 .challenge2 {
-    margin-left:40%;
-    margin-bottom:50%;
+    left:40%;
+    bottom:50%;
     width:auto;
     height:auto;
 }
@@ -117,9 +117,21 @@ li {
 }
 
 .challenge2img {
-    width:30%;
+    width:20%;
     height:50%;
     border-radius:30px 30px 30px 30px;
+}
+
+.challenge3 {
+    right: 20%;
+    top:2%;
+    width:auto;
+    height:auto;
+}
+
+.challenge3 a{
+    text-align:center;
+    display:block;
 }
 
 .challenge3img {
