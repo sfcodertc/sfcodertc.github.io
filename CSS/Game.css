@@ -66,6 +66,8 @@ li {
 
 .gameText {
     color:#2BAF30;
+    font-family: 'Archivo Narrow', sans-serif;
+    font-size:19px;
 }
 
 .gameNames {
@@ -83,4 +85,6 @@ li {
 .games {
     font-size:17px;
     color:#2B9F30;
+    font-family: 'Archivo Narrow', sans-serif;
+    font-size:19px;
 }
