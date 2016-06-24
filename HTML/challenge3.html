@@ -1,7 +1,7 @@
 <html>
     
     <head>
-        <link rel="stylesheet" href="../CSS/Challenges.css">
+        <link rel="stylesheet" href="../CSS/challenge2.css">
         <link href='https://fonts.googleapis.com/css?family=Roboto:400italic' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Titillium+Web:600' rel='stylesheet' type='text/css'>
@@ -46,21 +46,43 @@
         
         <div class="bodyShape">
             <div class="text">
-                <h3>Cool Stuff</h3>
+                <h3>Cool Stuff: The Random Circle Maker</h3>
             </div>
             
-            <div class="challenges">
-                <div class="challenge1">
-                    <a href="challenge1.html"><img src="../IMG/circle.JPG" class="challenge"></a> 
-                    <figcaption><a href="challenge1.html">Monte Carlo Simulation</a></figcaption>
-                </div>
-                <div class="challenge2">
-                    <a href="challenge2.html"><img src="../IMG/gravity.JPG" class="challenge2img"></a>
-                    <figcaption><a href="challenge2.html">Gravity Simulation</a></figcaption>
-                </div>
-                <div class="challenge3">
-                    <p><a href="challenge3.html">Random Circle Maker</a><p>
-                </div>
+            <div class="challenge">
+                <p align="center">
+                    <canvas id="mycanvas"></canvas>
+                </p>
+
+                <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script>
+
+                <script>
+                    var sketchProc = function(processingInstance) {
+                        with (processingInstance) {
+
+                        size(500, 500);
+                        frameRate(0);
+
+                        background(255);
+
+                        var draw = function() {
+                            x = random(0, 500);
+                            y = random(0, 500);
+                            size = random(0, 100);
+                            r = random(0, 255);
+                            g = random(0, 255);
+                            b = random(0, 255);
+                            
+                            noStroke();
+                            fill(r, g, b);
+                            ellipse(x, y, size, size);
+                        }
+
+                    }};
+
+                        var canvas = document.getElementById("mycanvas");
+                        var processingInstance = new Processing(canvas, sketchProc);
+                </script>
             </div>
         </div>
-</html>
+</html> 
