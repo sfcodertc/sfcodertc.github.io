@@ -79,6 +79,7 @@ li {
     float:right;
     font-family: 'Archivo Narrow', sans-serif;
     font-size:19px;
+    padding-left:8%;
 }
 
 .text {
@@ -90,4 +91,6 @@ li {
     text-align:center;
     height:340px;
     overflow:auto;
+    font-family: 'Archivo Narrow', sans-serif;
+    font-size:19px;
 }
