@@ -77,8 +77,8 @@ li {
     background-color:#284F2C;
     border-radius:30px 30px 30px 30px;
     float:right;
-    text-align:center;
-    font-family:'Roboto', sans-serif;
+    font-family: 'Archivo Narrow', sans-serif;
+    font-size:19px;
 }
 
 .text {
