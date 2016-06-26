@@ -1,0 +1,100 @@
+<html>
+    
+    <head>
+        <link rel="stylesheet" href="../CSS/challenge3.css">
+        <link href='https://fonts.googleapis.com/css?family=Roboto:400italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Titillium+Web:600' rel='stylesheet' type='text/css'>
+    </head>
+    
+    <title>Tome3</title>
+    
+    <body>
+        
+        <div class="header" text-align="left">
+            
+            <div class="container">
+            
+                <div class="logo">
+                    <h1>
+                        <a href="../index.html">Tome3</a>
+                    <h1>
+                </div>
+                <div class="menu">
+`                   <ul>
+                        <li>
+                            <a href="../index.html">Home</a>
+                        </li>
+                    
+                        <li>
+                            <a href="about.html">About</a>
+                        </li>
+                    
+                        <li>
+                            <a href="Game.html">Games</a>
+                        </li>
+                        
+                        <li>
+                            <a href="Challenges.html">Gallery</a>
+                        </li>
+                    </ul>
+                </div>
+                            
+            </div>
+            
+        </div>
+        
+        <div class="bodyShape">
+            <div class="text">
+                <h3>Tyler's Acomplishments: Smiley Maker</h3>
+            </div>
+            
+            <div class="challenge">
+                <p align="center">
+                    <canvas id="mycanvas"></canvas>
+                </p>
+
+                <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script>
+
+                <script>
+                    var sketchProc = function(processingInstance) {
+                        with (processingInstance) {
+
+                        size(500, 500);
+                        frameRate(0);
+
+                        background(0);
+
+                        var draw = function() {
+                          var randomX = random(0, 500);
+                          var randomY = random(0, 500);
+                          
+                          if (dist(250, 250, randomX, randomY) <= 250) {
+                            fill(255, 0, 0);
+                            inCircle ++;
+                          } else {
+                            fill(0, 0, 255);
+                          }
+                          if (dist(150, 150, randomX, randomY) <= 50 ||
+                          dist(350, 150, randomX, randomY) <= 50 ||
+                          dist(250, 350, randomX, randomY) <= 70) {
+                            fill(0, 0, 0);
+                          }
+                          
+                          if (dist(250, 325, randomX, randomY) <= 70) {
+                            fill(255, 0, 0);
+                          }
+                          
+                          noStroke();
+                          ellipse(randomX, randomY, 1, 1);
+                          
+                        };
+
+                    }};
+
+                        var canvas = document.getElementById("mycanvas");
+                        var processingInstance = new Processing(canvas, sketchProc);
+                </script>
+            </div>
+        </div>
+</html> 
