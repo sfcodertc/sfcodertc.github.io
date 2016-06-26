@@ -139,3 +139,21 @@ li {
     height:50%;
     border-radius:30px 30px 30px 30px;
 }
+
+.challenge4 {
+    right: 20%;
+    top: 2%;
+    width:auto;
+    height:auto;
+}
+
+.challenge4 a {
+    text-align:center;
+    display:block;
+}
+
+.challenge4img {
+    width:20%;
+    height:50%;
+    border-radius:30px 30px 30px 30px;
+}
