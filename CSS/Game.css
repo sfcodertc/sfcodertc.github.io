@@ -75,11 +75,12 @@ li {
     border-radius:30px 30px 30px 30px;
     text-align:center;
     height:140px;
-    width:300px;
+    width:600px;
     margin:0 auto;
     font-family: 'Roboto', sans-serif;
     padding-top:2px;
     padding-bottom:20px;
+    margin-left:10%;
 }
 
 .games {
@@ -100,4 +101,12 @@ li {
     padding-top:1%;
     text-align:center;
     margin-left:65%;
+}
+
+.gameimg {
+    background: #000000;
+    border: 3px solid #ffffff;
+    border-radius:30px 30px 30px 30px;
+    margin-right:12%;
+    margin-top:10%;
 }
