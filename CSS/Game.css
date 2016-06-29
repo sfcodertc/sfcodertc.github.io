@@ -96,9 +96,9 @@ li {
     font-family: 'Archivo Narrow', sans-serif;
     font-size:19px;
     border-radius:30px 30px 30px 30px;
-    width:30%;
-    height:30%;
+    width:60%;
+    height:100%;
     padding-top:1%;
     text-align:center;
-    margin-left:65%;
+    margin-left:100%;
 }
