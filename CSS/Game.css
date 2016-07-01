@@ -72,15 +72,16 @@ li {
 
 .gameNames {
     background-color:#285F2C;
-    border-radius:30px 30px 30px 30px;
+    border:2px solid #000000;
     text-align:center;
-    height:140px;
+    height:80%;
     width:600px;
     margin:0 auto;
     font-family: 'Roboto', sans-serif;
     padding-top:2px;
     padding-bottom:20px;
-    margin-left:10%;
+    left:5  0%;
+    bottom:10%;
 }
 
 .games {
@@ -97,8 +98,7 @@ li {
     font-size:19px;
     border-radius:30px 30px 30px 30px;
     width:60%;
-    height:100%;
+    height:40%;
     padding-top:1%;
     text-align:center;
-    margin-left:100%;
 }
