@@ -1,7 +1,7 @@
 <html>
     
     <head>
-        <link rel="stylesheet" href="../CSS/challenge4.css">
+        <link rel="stylesheet" href="../CSS/challenge5.css">
         <link href='https://fonts.googleapis.com/css?family=Roboto:400italic' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Titillium+Web:600' rel='stylesheet' type='text/css'>
@@ -46,7 +46,7 @@
         
         <div class="bodyShape">
             <div class="text">
-                <h3>Tyler's Acomplishments: Smiley Maker</h3>
+                <h3>Tyler's Acomplishments: Colorful Gradient Background</h3>
             </div>
             
             <div class="challenge">
@@ -63,30 +63,20 @@
                         size(500, 500);
                         frameRate(0);
 
-                        background(0);
+                        noStroke();
+                        colorMode(RGB, 100);
+
+                        var i = 0;
 
                         var draw = function() {
-                          var randomX = random(0, 500);
-                          var randomY = random(0, 500);
                           
-                          if (dist(250, 250, randomX, randomY) <= 250) {
-                            fill(255, 0, 0);
-                          } else {
-                            fill(0, 0, 255);
-                          }
-                          if (dist(150, 150, randomX, randomY) <= 50 ||
-                          dist(350, 150, randomX, randomY) <= 50 ||
-                          dist(250, 350, randomX, randomY) <= 70) {
-                            fill(0, 0, 0);
+                          for (var j = 0; j < 500; j++) {
+                            stroke(i, j, 40);
+                            
+                            ellipse(i * 3, j * 3, 3, 3);
                           }
                           
-                          if (dist(250, 325, randomX, randomY) <= 70) {
-                            fill(255, 0, 0);
-                          }
-                          
-                          noStroke();
-                          ellipse(randomX, randomY, 1, 1);
-                          
+                          i += 1;
                         };
 
                     }};
