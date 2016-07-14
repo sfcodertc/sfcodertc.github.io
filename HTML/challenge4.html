@@ -1,7 +1,11 @@
 <html>
     
     <head>
+<<<<<<< HEAD
         <link rel="stylesheet" href="../CSS/challenge3.css">
+=======
+        <link rel="stylesheet" href="../CSS/challenge4.css">
+>>>>>>> 752b2b42764c41ba417a135f0efba618365cc25a
         <link href='https://fonts.googleapis.com/css?family=Roboto:400italic' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Titillium+Web:600' rel='stylesheet' type='text/css'>
@@ -46,7 +50,11 @@
         
         <div class="bodyShape">
             <div class="text">
+<<<<<<< HEAD
                 <h3>Tyler's Acomplishments: Colorful Gradient Background</h3>
+=======
+                <h3>Tyler's Acomplishments: Smiley Maker</h3>
+>>>>>>> 752b2b42764c41ba417a135f0efba618365cc25a
             </div>
             
             <div class="challenge">
@@ -63,6 +71,7 @@
                         size(500, 500);
                         frameRate(0);
 
+<<<<<<< HEAD
                         noStroke();
                         colorMode(RGB, 100);
 
@@ -77,6 +86,32 @@
                           }
                           
                           i += 1;
+=======
+                        background(0);
+
+                        var draw = function() {
+                          var randomX = random(0, 500);
+                          var randomY = random(0, 500);
+                          
+                          if (dist(250, 250, randomX, randomY) <= 250) {
+                            fill(255, 0, 0);
+                          } else {
+                            fill(0, 0, 255);
+                          }
+                          if (dist(150, 150, randomX, randomY) <= 50 ||
+                          dist(350, 150, randomX, randomY) <= 50 ||
+                          dist(250, 350, randomX, randomY) <= 70) {
+                            fill(0, 0, 0);
+                          }
+                          
+                          if (dist(250, 325, randomX, randomY) <= 70) {
+                            fill(255, 0, 0);
+                          }
+                          
+                          noStroke();
+                          ellipse(randomX, randomY, 1, 1);
+                          
+>>>>>>> 752b2b42764c41ba417a135f0efba618365cc25a
                         };
 
                     }};
