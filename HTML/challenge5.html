@@ -1,11 +1,10 @@
 <html>
     
     <head>
-        <link rel="stylesheet" href="../CSS/Challenges.css">
+        <link rel="stylesheet" href="../CSS/challenge5.css">
         <link href='https://fonts.googleapis.com/css?family=Roboto:400italic' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Titillium+Web:600' rel='stylesheet' type='text/css'>
-        <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
     </head>
     
     <title>Tome3</title>
@@ -47,30 +46,44 @@
         
         <div class="bodyShape">
             <div class="text">
-                <h3>Tyler's Acomplishments</h3>
+                <h3>Tyler's Acomplishments: Colorful Gradient Background</h3>
             </div>
             
-            <div class="challenges">
-                <div class="challenge1">
-                    <a href="challenge1.html"><img src="../IMG/circle.JPG" class="challenge"></a> 
-                    <figcaption><a href="challenge1.html">Monte Carlo Simulation</a></figcaption>
-                </div>
-                <div class="challenge2">
-                    <a href="challenge2.html"><img src="../IMG/gravity.JPG" class="challenge2img"></a>
-                    <figcaption><a href="challenge2.html">Gravity Simulation</a></figcaption>
-                </div>
-                <div class="challenge3">
-                    <a href="challenge3.html"><img src="../IMG/random.JPG" class="challenge3img"></a>
-                    <figcaption><a href="challenge3.html">Random Circle Maker</a></figcaption>
-                </div>
-                <div class="challenge4">
-                    <a href="challenge4.html"><img src="../IMG/smiley.JPG" class="challenge4img"></a>
-                    <figcaption><a href="challenge4.html">Smiley Maker</a></figcaption>
-                </div>
-                <div class="challenge5">
-                    <a href="challenge5.html"><img src="../IMG/color.JPG" class="challenge5img"></a>
-                    <figcaption><a href="challenge5.html">Colorful Gradient Background</a></figcaption>
-                </div>
+            <div class="challenge">
+                <p align="center">
+                    <canvas id="mycanvas"></canvas>
+                </p>
+
+                <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script>
+
+                <script>
+                    var sketchProc = function(processingInstance) {
+                        with (processingInstance) {
+
+                        size(500, 500);
+                        frameRate(0);
+
+                        noStroke();
+                        colorMode(RGB, 100);
+
+                        var i = 0;
+
+                        var draw = function() {
+                          
+                          for (var j = 0; j < 500; j++) {
+                            stroke(i, j, 40);
+                            
+                            ellipse(i * 3, j * 3, 3, 3);
+                          }
+                          
+                          i += 1;
+                        };
+
+                    }};
+
+                        var canvas = document.getElementById("mycanvas");
+                        var processingInstance = new Processing(canvas, sketchProc);
+                </script>
             </div>
         </div>
-</html>
+</html> 
