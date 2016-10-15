@@ -69,10 +69,17 @@ li {
 .updateBox {
     text-align:center;
     background-color:#306133;
-    padding-bottom:10%;
     font-family: 'Arimo', sans-serif;
     border:20px;
-    margin-bottom: 10%;
+    position:absolute;
+    left:13%;
+    padding:3%;
+    height:40%;
+    border:3px solid #000;
+}
+
+.updateTitle {
+    color: #000099;
 }
 
 .home {
