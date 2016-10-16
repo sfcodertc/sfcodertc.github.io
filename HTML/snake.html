@@ -77,6 +77,7 @@
                     var timer;
                     var tickSpeed;
                     var apple;
+                    var blueAppleChance;
                     var score;
                     var crashed;
                     var paused;
@@ -88,6 +89,7 @@
                       timer = millis();
                       tickSpeed = 50;
                       score = 0;
+                      blueAppleChance = random(0, 3);
                       textSize(32);
                       crashed = false;
                       paused = false;
@@ -212,9 +214,13 @@
                     };
                     
                     var drawApple = function() {
-                      fill(255, 0, 0);
-                      ellipse(apple.x, apple.y, gridSize, gridSize);
-                    
+                      if (blueAppleChance < 2) {
+                        fill(255, 0, 0);
+                        ellipse(apple.x, apple.y, gridSize, gridSize);
+                      } else {
+                        fill(0, 0, 255);
+                        ellipse(apple.x, apple.y, gridSize, gridSize);
+                      }
                     };
                     
                     var drawScore = function() {
@@ -237,7 +243,11 @@
                     var eatApple = function() {
                       if (collision(snake, apple)) {
                         snake.tail.push({x: snake.x, y: snake.y});
-                        score++;
+                        if (blueAppleChance < 2) {
+                          score++;
+                        } else {
+                          score += 3;
+                        }
                         tickSpeed -= 0.5;
                         moveApple();
                         moveLandmines();
@@ -245,6 +255,8 @@
                     };
                     
                     var moveApple = function() {
+                      blueAppleChance = random(0, 3);
+
                       apple.x = floor(random(0, width / gridSize)) * gridSize + 10;
                       apple.y = floor(random(5, height / gridSize)) * gridSize + 10;
                     
