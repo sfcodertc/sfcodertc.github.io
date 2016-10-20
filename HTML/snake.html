@@ -89,7 +89,7 @@
                       timer = millis();
                       tickSpeed = 50;
                       score = 0;
-                      blueAppleChance = random(0, 3);
+                      blueAppleChance = random(-2, 7);
                       textSize(32);
                       crashed = false;
                       paused = false;
@@ -214,7 +214,7 @@
                     };
                     
                     var drawApple = function() {
-                      if (blueAppleChance < 2) {
+                      if (blueAppleChance < 6) {
                         fill(255, 0, 0);
                         ellipse(apple.x, apple.y, gridSize, gridSize);
                       } else {
@@ -243,7 +243,7 @@
                     var eatApple = function() {
                       if (collision(snake, apple)) {
                         snake.tail.push({x: snake.x, y: snake.y});
-                        if (blueAppleChance < 2) {
+                        if (blueAppleChance < 6) {
                           score++;
                         } else {
                           score += 3;
@@ -255,7 +255,7 @@
                     };
                     
                     var moveApple = function() {
-                      blueAppleChance = random(0, 3);
+                      blueAppleChance = random(0, 7);
 
                       apple.x = floor(random(0, width / gridSize)) * gridSize + 10;
                       apple.y = floor(random(5, height / gridSize)) * gridSize + 10;
@@ -336,6 +336,15 @@
                 <p> to grow longer and have to eat as much apples as you can.</p>
                 <p> When you eat an apple, you grow faster and longer.</p>
                 <p>On the top says how much apples you've eaten.</p>
+                <h4>Different Types:</h4>
+                <p>There are two types of apples, red and blue.</p>
+                <p>The red one is the more common one.</p>
+                <p>It only gives you 1 point, just like a normal apple</p>
+                <p>The blue one is still common, but it's rarer..</p>
+                <p>The blue one gives you three points instead of 3.</p>
+                <p>It still gives you the same amount of speed and length.</p>
+                <p>Basically it only gives you more points, that's the difference.
+                </p>
                 <h4>Controls:</h4>
                 <p>Press UP to go up, press DOWN to go down, etc.</p>
                 <p>You can also press P to pause the game and lastly,</p>
