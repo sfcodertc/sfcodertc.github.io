@@ -1,2 +1,260 @@
 <html>
+    
+    <head>
+        <link rel="stylesheet" href="../CSS/breakOut.css">
+        <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script>
+        <link href='https://fonts.googleapis.com/css?family=Enriqueta' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Titillium+Web:600' rel='stylesheet' type='text/css'>
+    </head>
+    
+    <title>Tome3</title>
+    
+    <body>
+        
+        <div class="header" text-align="left">
+            
+            <div class="container">
+            
+                <div class="logo">
+                    <h1>
+                        <a href="../index.html">Tome3</a>
+                    <h1>
+                </div>
+                <div class="menu">
+`                   <ul>
+                        <li>
+                            <a href="../index.html">Home</a>
+                        </li>
+                    
+                        <li>
+                            <a href="about.html">About</a>
+                        </li>
+                    
+                        <li>
+                            <a href="Game.html">Games</a>
+                        </li>
+                        
+                        <li>
+                            <a href="Challenges.html">Gallery</a>
+                        </li>
+                    </ul>
+                </div>
+                            
+            </div>
+            
+        </div>
+        
+        <div class="bodyshape">
+            <div class="gameName">
+                <div class="text">
+                    <h1>Break Out:</h1>                    
+                </div>
+            </div>
+            
+            <div class="breakOutGame">
+                   <p align="center"> 
+     
+                    <canvas id="mycanvas"></canvas> 
+                        
+                    </p>
+                    
+                    <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script> 
+                    
+                    <script>
+                    var sketchProc = function(processingInstance) {
+                         
+                      with (processingInstance) {  
+                        var gameWidth = 400;
+                        var gameHeight = 400;
+
+                        var score = 0;
+                        var lives = 5;
+
+                        var win = 0;
+                        var lose = 0;
+
+                        var ballDiameter = 10;
+                        var balls = [{x: gameWidth/2, y: gameHeight * 2 / 3,
+                                    w: ballDiameter, h: ballDiameter, dx: random(-5, 5),
+                                    dy: random(-5, 5)}];
+                        var addBall = 10;
+
+                        var playerWidth = 75;
+                        var playerHeight = 15;
+                        var player = {x: gameWidth * 1 / 4, y: gameHeight - 16,
+                                      w: playerWidth, h: playerHeight};
+
+                        var playerSpeed = 5;
+
+                        var left = 0;
+                        var right = 0;
+
+                        var blocks = [];
+                        var blockNum = 0;
+
+                        for (var i = 0; i < 8; i++) {
+                          for (var j = 0; j < 5; j++) {
+                            blocks[blockNum] = {x: i * 50, y: j * 30, w: 40, h: 20, show: 1};
+                          
+                            blockNum ++;
+                          }
+                        }
+
+                        var draw = function() {
+                          noStroke();
+                          size(gameWidth, gameHeight);
+                          
+                          background(102, 204, 255);
+                          
+                          drawBlocks();
+                          drawBall();
+                          drawPlayer();
+                          drawText();
+                          add();
+                        };
+
+                        var collision = function(obj1, obj2) {
+                          if (obj1.x + obj1.w > obj2.x &&
+                              obj1.x < obj2.x + obj2.w &&
+                              obj2.y + obj2.h > obj1.y &&
+                              obj2.y < obj1.y + obj1.h) {
+                                return true;
+                              } else {
+                                return false;
+                              }
+                        };
+
+                        var keyPressed = function() {
+                          if (keyCode == LEFT) {
+                            left = 1;
+                          } if (keyCode == RIGHT) {
+                            right = 1;
+                          }
+                        };
+
+                        var keyReleased = function() {
+                          if (keyCode == LEFT) {
+                            left = 0;
+                          } if (keyCode == RIGHT) {
+                            right = 0;
+                          }
+                        };
+
+                        var drawBlocks = function() {
+                          fill(153, 0, 204);
+                          for (var i = 0; i < balls.length; i++) {
+                            for(var a = 0; a < blocks.length; a++) {
+                              if (collision(balls[i], blocks[a]) && blocks[a].show == 1) {
+                                blocks[a].show = 0;
+                                balls[i].dy = balls[i].dy * -1;
+                                score ++;
+                              } 
+                            
+                              if (blocks[a].show == 1) {
+                                rect(blocks[a].x, blocks[a].y, blocks[a].w, blocks[a].h);
+                              }
+                            }
+                          }
+                        };
+
+                        var drawBall = function() {
+                          for (var i = 0; i < balls.length; i++) {
+                            if (balls[i].x + ballDiameter < 0 || balls[i].x + ballDiameter > gameWidth) {
+                              balls[i].dx *= -1;
+                            }
+                            if (balls[i].y + ballDiameter < 0 || balls[i].y + ballDiameter > gameHeight) {
+                              balls[i].dy *= -1;
+                            }
+                            
+                            fill(0, 0, 204);
+                            
+                            if (win != 1 && lose != 1) {
+                              balls[i].x += balls[i].dx;
+                              balls[i].y += balls[i].dy;
+                            }
+                            
+                            if (balls[i].y > gameHeight - 10) {
+                              lives --;
+                              balls[i].x = gameWidth / 2;
+                              balls[i].y = gameHeight * 2 / 3;
+                            }
+                            
+                            ellipse(balls[i].x, balls[i].y, balls[i].w, balls[i].h);
+                          }
+                        };
+
+                        var drawPlayer = function() {
+                          for (var i = 0; i < balls.length; i++) {
+                            if (left === 1) {
+                              if (player.x > 0) {
+                                player.x -= playerSpeed;
+                              }
+                            }
+                            if (right === 1) {
+                              if (player.x + playerWidth < gameWidth) {
+                                player.x += playerSpeed;
+                              }
+                            }
+                            
+                            fill(102, 0, 102);
+                            rect(player.x, player.y, player.w, player.h);
+                            
+                            if (collision(balls[i], player)) {
+                              balls[i].dy *= -1;
+                            }
+                          }
+                        };
+
+                        var drawText = function() {
+                          fill(0);
+                          textSize(14);
+                          text("Score: " + score, 10, gameHeight - 40);
+                          text("Lives: " + lives, 10, gameHeight - 20);
+                          
+                          if (lives <= 0) {
+                            lose = 1;
+                            textSize(30);
+                            text("You lose!", 20, gameHeight - 80);
+                          }
+                          
+                          if (score >= 40) {
+                            win = 1;
+                            textSize(30);
+                            text("You win!", 20, gameHeight - 80);
+                          }
+                        };
+
+                        var add = function() {
+                          if (score >= addBall) {
+                            balls.push({x: gameWidth/2, y: gameHeight * 2 / 3,
+                                    w: ballDiameter, h: ballDiameter,
+                                    dx: random(-5, 5), dy: random(-5, 5)
+                            });
+                                    
+                            addBall *= 2;
+                          }
+                        };
+                        
+                      }};
+                    var canvas = document.getElementById("mycanvas"); 
+                    var processingInstance = new Processing(canvas, sketchProc); 
+                    
+                    </script>
+
+            </div>
+            
+            <div class="description">
+              <h4>A breakout game!</h4>
+              <p>This game gives you five lives.</p>
+              <p>There are balls, you start off with one.</p>
+              <p>Like the pong game, you get more as the game progresses.</p>
+              <h4>Gameplay</h4>
+              <p>The goal of the game is the get rid of all the blocks without losing all five lives.</p>
+              <p>Yay!</p>
+            </div>
+            
+        </div>
+    </body>
+    
 </html>
