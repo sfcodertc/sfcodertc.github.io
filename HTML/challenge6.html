@@ -1,0 +1,246 @@
+<html>
+    
+    <head>
+        <link rel="stylesheet" href="../CSS/challenge6.css">
+        <link href='https://fonts.googleapis.com/css?family=Roboto:400italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Titillium+Web:600' rel='stylesheet' type='text/css'>
+    </head>
+    
+    <title>Tome3</title>
+    
+    <body>
+        
+        <div class="header" text-align="left">
+            
+            <div class="container">
+            
+                <div class="logo">
+                    <h1>
+                        <a href="../index.html">Tome3</a>
+                    <h1>
+                </div>
+                <div class="menu">
+`                   <ul>
+                        <li>
+                            <a href="../index.html">Home</a>
+                        </li>
+                    
+                        <li>
+                            <a href="about.html">About</a>
+                        </li>
+                    
+                        <li>
+                            <a href="Game.html">Games</a>
+                        </li>
+                        
+                        <li>
+                            <a href="Challenges.html">Gallery</a>
+                        </li>
+                    </ul>
+                </div>
+                            
+            </div>
+            
+        </div>
+        
+        <div class="bodyShape">
+            <div class="text">
+                <h3>Tyler's Acomplishments: Stopwatch</h3>
+            </div>
+            
+            <div class="challenge">
+                <p align="center">
+                    <canvas id="mycanvas"></canvas>
+                </p>
+
+                <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script>
+
+                <script>
+                    var sketchProc = function(processingInstance) {
+                        with (processingInstance) {
+
+                        size(500, 500);
+                        frameRate(70);
+
+                        var stop = {x: 50, y: 400, w: 50, h: 50};
+                        var start = {x: 400, y: 400, w: 50, h: 50};
+                        var reset = {x: 50, y: 300, w: 50, h: 50};
+                        var mouse = {x: mouseX, y: mouseY, w: 1, h: 1};
+                        var mouseClick = false;
+                        var started = false;
+                        var stopped = false;
+                        var s = 0;
+                        var m = 0;
+                        var h = 0;
+                        var secondSpeed = 0;
+
+                        var mousePressed = function() {
+                          mouseClick = true;
+                        };
+
+                        var mouseReleased = function() {
+                          mouseClick = false;
+                        };
+
+                        var draw = function() {
+                          mouse = {x: mouseX, y: mouseY, w: 1, h: 1};
+                          if (started && !stopped) {
+                            secondSpeed ++;
+                          } if (!started) {
+                            secondSpeed = 0;
+                          }
+                          
+                          if (started && secondSpeed >= 70 && !stopped) {
+                            s ++;
+                            secondSpeed = 0;
+                            if (s >= 60) {
+                              m ++;
+                              s = 0;
+                            }
+                            if (m >= 60) {
+                              h ++;
+                              m = 0;
+                            }
+                          } if (!started) {
+                            s = 0;
+                            m = 0;
+                            h = 0;
+                          }
+                          background(0);
+                          drawStop();
+                          drawStart();
+                          drawReset();
+                          drawTime();
+                          testClick();
+                        };
+
+                        var drawStart = function() {
+                          if (!started || stopped) {
+                            fill(0, 255, 0);
+                            rect(start.x, start.y, start.w, start.h);
+                            fill(0);
+                            textSize(15);
+                            text("Start", start.x + 7, start.y + 20);
+                          }
+                        };
+
+                        var drawStop = function() {
+                          if (!stopped && started) {
+                            fill(255, 0, 0);
+                            rect(stop.x, stop.y, stop.w, stop.h);
+                            fill(0);
+                            textSize(15);
+                            text("Stop", stop.x + 7, stop.y + 20);
+                          }
+                        };
+
+                        var drawReset = function() {
+                          if (stopped) {
+                            fill(255, 255, 0);
+                            rect(reset.x, reset.y, reset.w, reset.h);
+                            fill(0);
+                            textSize(15);
+                            text("Reset", reset.x + 7, reset.y + 20);
+                          }
+                        };
+
+                        var testClick = function() {
+                          if (collision(mouse, stop) && mouseClick && started == true) {
+                            stopped = true;
+                          }
+                          
+                          if (collision(mouse, reset) && mouseClick && stopped == true) {
+                            started = false;
+                            stopped = false;
+                          }
+                          
+                          if (collision(mouse, start) && mouseClick) {
+                            if (stopped == true) {
+                              stopped = false;
+                              return;
+                            } else {
+                              started = true;
+                            }
+                          }
+                        };
+
+                        var drawTime = function() {
+                          fill(255, 255, 0);
+                          if (m == 0) {
+                            textSize(40);
+                            if (s != 1) {
+                              text(s + " seconds", 70, 70);
+                            } else {
+                              text(s + " second", 70, 70);
+                            }
+                          } else {
+                            if (h == 0) {
+                              textSize(30);
+                              if (m > 1) {
+                                if (s != 1) {
+                                  text(m + " minutes and " + s + " seconds", 20, 70);
+                                } else {
+                                  text(m + " minutes and " + s + " second", 20, 70);
+                                }
+                              } else {
+                                if (s != 1) {
+                                  text(m + " minute and " + s + " seconds", 20, 70);
+                                } else {
+                                  text(m + " minute and " + s + " second", 20, 70);
+                                }
+                              }
+                            } else {
+                              textSize(20);
+                              if (h != 1) {
+                                if (m > 1) {
+                                  if (s != 1) {
+                                    text(h + " hours, " + m + " minutes and " + s + " seconds", 20, 70);
+                                  } else {
+                                    text(h + " hours, " + m + " minutes and " + s + " second", 20, 70);
+                                  }
+                                } else {
+                                  if (s != 1) {
+                                    text(h + " hours, " + m + " minute and " + s + " seconds", 20, 70);
+                                  } else {
+                                    text(h + " hours, " + m + " minute and " + s + " second", 20, 70);
+                                  }
+                                }
+                              } else {
+                                if (m > 1) {
+                                  if (s != 1) {
+                                    text(h + " hour, " + m + " minutes and " + s + " seconds", 20, 70);
+                                  } else {
+                                    text(h + " hour, " + m + " minutes and " + s + " second", 20, 70);
+                                  }
+                                } else {
+                                  if (s != 1) {
+                                    text(h + " hour, " + m + " minute and " + s + " seconds", 20, 70);
+                                  } else {
+                                    text(h + " hour, " + m + " minute and " + s + " second", 20, 70);
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        };
+
+                        var collision = function(obj1, obj2) {
+                          if (obj1.x + obj1.w > obj2.x &&
+                          obj1.x < obj2.x + obj2.w &&
+                          obj2.y + obj2.h > obj1.y &&
+                          obj2.y < obj1.y + obj1.h) {
+                            return true;
+                          } else {
+                            return false;
+                          }
+                        };
+
+                    }};
+
+                        var canvas = document.getElementById("mycanvas");
+                        var processingInstance = new Processing(canvas, sketchProc);
+                </script>
+            </div>
+        </div>
+</html> 
