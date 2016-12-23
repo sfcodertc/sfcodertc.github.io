@@ -72,25 +72,25 @@
                     frameRate(0);
                     
                     var gridSize = 20;
+                    var highScore = 0;
                     var snake;
                     var newDir;
                     var timer;
                     var tickSpeed;
                     var apple;
-                    var blueAppleChance;
+                    var powerUpChance;
                     var score;
                     var crashed;
                     var paused;
                     var tickSpeed;
                     var landmine;
-                    var highScore;
 
                     var setup = function() {
                       newDir = "right";
                       timer = millis();
                       tickSpeed = 50;
                       score = 0;
-                      blueAppleChance = random(-2, 7);
+                      powerUpChance = random(1, 3);
                       textSize(32);
                       crashed = false;
                       paused = false;
@@ -103,7 +103,7 @@
                       snake = {
                         dir: "right",
                       
-                    
+
                         x: 225,
                         y: 225,
                         
@@ -118,10 +118,8 @@
                         x: floor(random(0, width / gridSize)) * gridSize + 10,
                         y: floor(random(5, height / gridSize)) * gridSize + 10
                       };
-                      
-                      draw();
                     };
-                    
+
                     var draw = function() {
                       
                       if (paused) return;
@@ -141,7 +139,7 @@
                         timer = millis();
                       }
                     };
-                    
+
                     var drawSnake = function() {
                       fill(255, 255, 0);
                       ellipse(snake.x, snake.y, gridSize, gridSize);
@@ -151,7 +149,7 @@
                         ellipse(snake.tail[i].x, snake.tail[i].y, gridSize, gridSize);
                       }
                     };
-                    
+
                     var moveSnake = function() {
                       snake.tail.push({x: snake.x, y: snake.y});
                       
@@ -168,7 +166,7 @@
                       wrap();
                       snake.tail.splice(0, 1);
                     };
-                    
+
                     var keyPressed = function() {
                       if (keyCode === RIGHT && snake.dir !== "left") {
                         newDir = "right";
@@ -201,7 +199,7 @@
                         score -= 1;
                       }
                     };
-                    
+
                     var wrap = function() {
                       if (snake.x > width) {
                         snake.x -= width;
@@ -213,9 +211,9 @@
                         snake.y += height;
                       }
                     };
-                    
+
                     var drawApple = function() {
-                      if (blueAppleChance < 6) {
+                      if (powerUpChance < 2.5) {
                         fill(255, 0, 0);
                         ellipse(apple.x, apple.y, gridSize, gridSize);
                       } else {
@@ -223,13 +221,15 @@
                         ellipse(apple.x, apple.y, gridSize, gridSize);
                       }
                     };
-                    
+
                     var drawScore = function() {
                       fill(255);
                       stroke(0);
-                      text(score, 225, 30);
+                      text("Score: " + score, 75, 30);
+                      
+                      text("Highscore: " + highScore, 250, 30);
                     };
-                    
+
                     var collision = function(obj1, obj2) {
                       if (obj1.x + gridSize > obj2.x &&
                       obj1.x < obj2.x + gridSize &&
@@ -240,11 +240,11 @@
                         return false;
                       }  
                     };
-                    
+
                     var eatApple = function() {
                       if (collision(snake, apple)) {
                         snake.tail.push({x: snake.x, y: snake.y});
-                        if (blueAppleChance < 6) {
+                        if (powerUpChance < 2.5) {
                           score++;
                         } else {
                           score += 3;
@@ -254,20 +254,19 @@
                         moveLandmines();
                       }
                     };
-                    
-                    var moveApple = function() {
-                      blueAppleChance = random(0, 7);
 
+                    var moveApple = function() {
+                      powerUpChance = random(1, 3);
                       apple.x = floor(random(0, width / gridSize)) * gridSize + 10;
                       apple.y = floor(random(5, height / gridSize)) * gridSize + 10;
-                    
+
                       for(var i = 0; i < snake.tail.length; i++) {
                         if(apple.x === snake.tail[i].x && apple.y === snake.tail[i].y) {
                           moveApple();
                         }
                       }
                     };
-                    
+
                     var crashCheck = function() {
                       for (var i = 0; i < snake.tail.length; i++) {
                         if (collision(snake, snake.tail[i])) {
@@ -294,25 +293,30 @@
                           strokeWeight(0);
                         }    
                       }
-                    
+                      
+                      if (crashed === true) {
+                        if (highScore <= score) {
+                          highScore = score;
+                        }
+                      }
                     };
-                    
+
                     var drawLandmines = function() {
                       if (score >= 5) {
                         fill(255, 255, 0);
                         ellipse(landmine.x, landmine.y, gridSize, gridSize);
-                    
+
                         checkLandmines();   
                       }
                     };
-                    
+
                     var moveLandmines = function() {
                       landmine.x = floor(random(0, width / gridSize)) * gridSize + 10;
                       landmine.y = floor(random(5, height / gridSize)) * gridSize + 10;
-                    
+
                       checkLandmines();
                     };
-                    
+
                     var checkLandmines = function() {
                       for (var i = 0; i < snake.tail.length; i++) {
                         if (collision(apple, landmine) 
@@ -322,7 +326,6 @@
                         }    
                       }
                     };
-
                     }};  
                         
                     var canvas = document.getElementById("mycanvas"); 
