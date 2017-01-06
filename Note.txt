@@ -1,0 +1,41 @@
+Green:
+#00FF00
+Blue Green:
+#009999
+Yellow Green:
+#88CC00
+Red:
+#FF0000
+Red Orange:
+#FF5500
+Orange:
+#FF6600
+Red Violet:
+#993399
+Violet:
+#9900CC
+Blue Violet:
+#6600FF
+Blue:
+#0000FF
+Yellow:
+#FFFF00
+White:
+#FFFFFF
+
+Things (Original, index.css):
+
+body {#164B19}
+header {#437E47}
+updateBox {#306133}
+home {#285F2C}
+bodyShape {#08330B}
+text (from challenges.css) {#2B7F30}
+
+Now (Christmas edition):
+
+body {#006600}
+header {#009999}
+updateBox {#7700FF}
+home {#66AA00}
+bodyShape {#007777}

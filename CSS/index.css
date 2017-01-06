@@ -1,5 +1,5 @@
 body {
-    background-color:#164B19;
+    background-color:#006600;
     width:100%;
     margin:auto;
 }
@@ -16,7 +16,7 @@ body {
 }
 
 .header {
-    background:#437E47;
+    background:#009999;
     width: 100%;
     height:100px;
     top: 0;
@@ -68,7 +68,7 @@ li {
 .updateBox {
     width: 40%;
     text-align:center;
-    background-color:#306133;
+    background-color:#7700FF;
     font-family: 'Arimo', sans-serif;
     border:20px;
     position: inline-block;
@@ -76,7 +76,7 @@ li {
     left:13%;
     padding:3%;
     height:40%;
-    border:3px solid #000;
+    border:2px solid #FFF;
     margin-right: 3em;
     margin-left: 1em;
     margin-top: 1em;
@@ -91,18 +91,18 @@ li {
     width: 40%;
     position: inline-block;
     color:#2B8F30;
-    background-color:#285F2C;
+    background-color:#66AA00;
     border-radius:30px 30px 30px 30px;
     float:left;
     text-align:center;
     font-family: 'Archivo Narrow', sans-serif;
     font-size:19px;
-    border:3px solid #000;
+    border:2px solid #FFF;
     margin-top: 1em;
 }
 
 .bodyshape {
-    background:#08330B;
+    background:#007777;
     border-radius:30px 30px 0px 0px;
     height:100%;
 }
