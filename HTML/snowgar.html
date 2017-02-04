@@ -48,7 +48,7 @@
         <div class="bodyshape">
             <div class="gameName">
                 <div class="text">
-                    <h1>Pong:</h1>                    
+                    <h1>Snowgar:</h1>                    
                 </div>
             </div>
             
@@ -67,262 +67,125 @@
                     with (processingInstance) {
                             
                     size(500, 500); 
-                            
-                    frameRate(0);
 
-                  var playing;
-                  var up;
-                  var down;
-                  var up2;
-                  var down2;
-                  var players;
-                  var ball;
-                  var startBallDirection;
-                  var ballspd;
-                  var addBallSpd;
-                  var score1 = 0; 
-                  var score2 = 0;
+                    var playing = true;
 
-                  var setup = function() {
-                    playing = false;
-  
-                    up = false;
-                    down = false;
-                    up2 = false;
-                    down2 = false;
-  
-                    startBallDirection = random(0, 1);
+                    var CCanvas = document.getElementById("mycanvas")
 
-                    players = [
-                      {x: 50, y: 250, w: 25, h: 150, lose: false},
-                      {x: 440, y: 250, w: 25, h: 150, lose: false}
-                    ];
-  
-                    ball = [
-                      {x: 250, y: 250, w: 25, h: 25, movex: undefined, movey: 0}
-                    ];
-         
-                    for (var i = 0; i < ball.length; i++) {
-                      if (ball[i].movex === undefined) {
-                        if (startBallDirection >= 0.5) {
-                          ball[i].movex = 'left';
-                        } else {
-                          ball[i].movex = 'right';
-                        }
+                    class Snowflake {
+                      constructor(x, y, s, spd, xspd) {
+                        this.xpos = x;
+                        this.ypos = y;
+                        this.size = s;
+                        this.speed = spd;
+                        this.xspeed = xspd;
                       }
                     }
-           
-                    ballspd = 0.5;
-                    addBallSpd = 0.6;
 
-                    draw();
-                  };
 
-                  var draw = function() {
-                    background(0);
-                    noStroke();
-                    drawPlayers();
-                    drawBall();
-                    collisionBall();
-                    displayScore();
-                    if (players[0].lose === true || players[1].lose === true) return;
-                    move(players, 1);
-                    moveBall();
-                    addBall();
-                  };
+                    var snowflake = [];
+                    var player = {
+                      xpos: 250,
+                      ypos: 450,
+                      size: 10,
+                      color: color(255, 0, 0)
+                    };
+                    var sizeSnowflake = 10;
 
-                  var collision = function(obj1, obj2) {
-                    if (obj1.x + obj1.w > obj2.x &&
-                    obj1.x < obj2.x + obj2.w &&
-                    obj2.y + obj2.h > obj1.y &&
-                    obj2.y < obj1.y + obj1.h) {
-                      return true;
-                    } else {
-                      return false;
-                    }
-                  };
 
-                  var drawPlayers = function() {
-                    fill(102, 102, 102);
-  
-                    for (var i = 0; i < players.length; i++) {
-                      rect(players[i].x, players[i].y, players[i].w, players[i].h);
-                    }
-                  };
-
-                  var drawBall = function() {
-                    if (!playing) return;
-  
-                    for (var i = 0; i < ball.length; i++) {
-                      fill(255, 255, 0);
-                      ellipse(ball[i].x, ball[i].y, ball[i].w, ball[i].h);
-                    }
-                  };
-
-                  var move = function(obj, spd) {
-                    if (up === true) {
-                      obj[0].y -= spd;
-    
-                      if (obj[0].y <= 0) {
-                        obj[0].y += spd;
-                      }
-                    }
-                    if (down === true) {
-                      obj[0].y += spd;
-    
-                      if (obj[0].y >= 500 - 150) {
-                        obj[0].y -= spd;
-                      }
-                    }
-                    if (up2 === true) {
-                      obj[1].y -= spd;
-    
-                      if (obj[1].y <= 0) {
-                        obj[1].y += spd;
-                      }
-                    }
-                    if (down2 === true) {
-                      obj[1].y += spd;
-    
-                      if (obj[1].y >= 500 - 150) {
-                        obj[1].y -= spd;
-                      }
-                    }
-                  };
-
-                  var keyPressed = function() {
-                    if (keyCode == UP) {
-                      up2 = true;
-                    }
-                    if (keyCode == DOWN) {
-                      down2 = true;
-                    }
-                    if (keyCode == 87) {
-                      up = true;
-                    } 
-                    if (keyCode == 83) {
-                      down = true;
-                    }
-                    if (keyCode == 80 && !playing) {
-                      playing = true;
-                    }
-                    for (var i = 0; i < players.length; i++) {
-                      if (keyCode == 82 && players[i].lose === true) {
-                        setup();
-                      }
-                    }
-                  };
-
-                  var keyReleased = function() {
-                    if (keyCode == UP) {
-                      up2 = false;
-                    }
-                    if (keyCode == DOWN) {
-                      down2 = false;
-                    }
-                    if (keyCode == 87) {
-                      up = false;
-                    } 
-                    if (keyCode == 83) {
-                      down = false;
-                    }
-                  };
-
-                  var moveBall = function() {
-                      if (!playing) return;
-  
-                      for (var i = 0; i < ball.length; i++) {
-                        if (ball[i].movex === 'right') {
-                          ball[i].x += ballspd;
-                          ball[i].y += ball[i].movey;
-                          ballspd += 0.00005;
-                        } 
-                        if (ball[i].movex === 'left') {
-                          ball[i].x -= ballspd;
-                          ball[i].y += ball[i].movey;
-                          ballspd += 0.00005;
-                        }
-                        if (collision(players[0], ball[i])) {
-                          ball[i].movex = 'right';
-                          ball[i].movey = random(-0.5, 0.5);
-                        }
-                        if (collision(players[1], ball[i])) {
-                          ball[i].movex = 'left';
-                          ball[i].movey = random(-0.5, 0.5);
-                        }
-                        if (ball[i].y <= 0 || ball[i].y >= 500) {
-                          ball[i].movey = ball[i].movey * -1;
-                        }
+                    var setup = function() {
+                      while (snowflake.length < 30) {
+                         snowflake.push(
+                          new Snowflake(
+                            random(0, 500), 
+                            random(0, 500),
+                            random(0, sizeSnowflake),
+                            random(2, 5),
+                            random(-5, 5)
+                          )
+                        );
                       }
                     };
 
-                    var collisionBall = function() {
-                      for (var i = 0; i < ball.length; i++) {
-                        for (var j = 0; j < players.length; j++) {
-                          if (ball[i].x <= 0) {
-                            players[1].lose = true;
-                            score2 += 1;
-                            ball[i].x = 250;
-                            ball[i].y = 250;
-                          }
-                          if (ball[i].x >= 475) {
-                            players[0].lose = true;
-                            score1 += 1;
-                            ball[i].x = 250;
-                            ball[i].y = 250;
-                          }
-      
-                          if (players[j].lose === true) {
-                            loseMessage();
-                          }
-                        }
-                      }
-                          
-                    };
-
-                      var loseMessage = function() {
-                        if (players[0].lose === true) {
-                          fill(0, 170, 255);
-                          rect(0, 250, 500, 100);
-                          fill(255);
-                          textSize(20);
-                          text("Left Player Wins!", 225, 300);
-                        }
+                    var draw = function() {
+                      if (playing) {
+                        background(0);
+                        noStroke();
+                        movePlayer();
+                        drawPlayer();
+                      
+                        eat();
                         
-                        if (players[1].lose === true) {    
-                          fill(0, 170, 255);
-                          rect(0, 250, 500, 100);
-                          fill(255);
-                          textSize(20);
-                          text("Right Player Wins!", 225, 300);
-                        }
-
-                    };
-
-                    var displayScore = function() {
                         fill(255);
-                        textSize(40);
-                        text("Wins:", 205, 50);
-                        text(score1, 150, 100);
-                        text(score2, 315, 100);
+                        
+                        for (var i = 0; i < snowflake.length; i++) {
+                          ellipse(snowflake[i].xpos, snowflake[i].ypos, snowflake[i].size, snowflake[i].size);
+                          
+                          if (snowflake[i].ypos < 570) {
+                            snowflake[i].ypos += snowflake[i].speed;
+                            snowflake[i].xpos += snowflake[i].xspeed;
+                          } else {
+                            reset(snowflake[i]);
+                          }
+                        }
+                      } else {
+                        background(180, 180, 0);
+                        fill(255);
+                        textSize(60);
+                        textAlign(CENTER, CENTER);
+                        text("You Lose!", 250, 250);
+                      }
                     };
 
-                    var addBall = function() {
-                        if (ballspd >= addBallSpd) {
-                          ball.push({x: 250, y: 250, w: 25, h: 25, movex: undefined, movey: 0});
+                    var collide = function(obj1, obj2) {
+                      var radius1 = obj1.size / 2;
+                      var radius2 = obj2.size / 2;
+                      
+                      var circleDistance = dist(obj1.xpos, obj1.ypos, obj2.xpos, obj2.ypos);
 
-                          for (var i = 0; i < ball.length; i++) {
-                            if (ball[i].movex === undefined) {
-                              ball[i].movex = 'left';
+                      if (radius1 + radius2 > circleDistance) {
+                        return true;
+                      } else {
+                        return false;
+                      }
+                    };
+
+                    var drawPlayer = function() {
+                      fill(player.color);
+                      ellipse(player.xpos, player.ypos, player.size, player.size);
+                    };
+
+
+                    var movePlayer = function() {
+                      player.xpos = mouseX*500/CCanvas.clientWidth;
+                      player.ypos = mouseY*500/CCanvas.clientHeight;
+                    ;
+                    };
+
+                    var eat = function() {
+                      snowflake.forEach(
+                        function(currentFlake) {
+                          if (collide(player, currentFlake)) {
+                            if (player.size > currentFlake.size) {
+                              player.size += (currentFlake.size / sizeSnowflake);
+                              
+                              reset(currentFlake);
                             } else {
-                              ball[i].movex = 'right';
+                              playing = false;
                             }
                           }
-
-                          addBallSpd *= 2;
                         }
+                      );
                     };
 
+                    var reset = function(snowflake) {
+                      sizeSnowflake += 0.1;
+                      snowflake.ypos = 0;
+                      snowflake.xpos = random(0, 500);
+                      snowflake.size = random(0, sizeSnowflake);
+                      snowflake.speed = random(2, 5);
+                      snowflake.xspeed = random(-5, 5);
+                    };                    
                     }};  
                         
                     var canvas = document.getElementById("mycanvas"); 
@@ -333,22 +196,13 @@
             </div>
             
             <div class="description">
-                <p>This is a multiplayer game where</p>
-                <p> you have to prevent some balls to escape your area by blocking it with your rectangle/paddle.</p>
-                <p>There will be more balls as the game progresses.</p>
-                <p> For example, if you're the left player,</p>
-                <p> you have to prevent it from going to your side (left).</p>
-                <p> If you do, than your opponent wins.</p>
-                <h4>Controls:</h4>
-                <p>If your the first player, (left player) your controls are W (Up) and S (Down).</p>
-                <p>And second player, (right player) your controls are Up Arrow (Up) and Down Arrow (Down).</p>
-                <p>When you're ready press P</p>
-                <p>After one of you wins, press R and then P again.</p>
-                <h4>Score:</h4>
-                <p>Your score on the top left/right means how many times you won.</p>
-                <h4>Ball Speed:</h4>
-                <p>The ball speed will add up overtime.</p>
-                <p>Good Luck!</p>
+                <p>This is a game combining snow and agar.io!</p>
+                <h3>Player:</h3>
+                <p>The red dot is your player</p>
+                <p>It'll follow your dot.</p>
+                <h3>Objective:</h3>
+                <p>You must become the biggest red dot ever.</p>
+                <p>Achieve this by eating smaller snowballs and avoiding bigger ones.</p>
             </div>
             
         </div>

@@ -151,3 +151,18 @@ a:active {
     height:90%;
     border:2px solid #FFF;
 }
+
+.snowgar {
+    width:17%;
+    height:50%;
+    text-align:center;
+    display:block;
+    position:absolute;
+    left:77%;
+}
+
+.snowgarIMG {
+    width:100%;
+    height:90%;
+    border:2px solid #FFF;
+}
