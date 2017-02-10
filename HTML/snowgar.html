@@ -112,6 +112,7 @@
                     };
 
                     var draw = function() {
+                      mouse = {x: mouseX, y: mouseY, w: 1, h: 1};
                       if (playing) {
                         resetButton = {x: 100, y: 100, w: 250, h: 100, show: 0};
                         background(0);
@@ -146,7 +147,7 @@
                         text("Reset", 200, 150);
 
                         console.log("you lose");
-                        if (!playing && collision(mouse, resetButton) && mouseClicked) {
+                        if (!playing && collision(mouse, resetButton) && mouseClicked && resetButton.show == 1) {
                           playing = true;
                           console.log("reset clicked");
                         }
