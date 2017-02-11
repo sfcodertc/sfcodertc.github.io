@@ -91,7 +91,8 @@
                       xpos: 250,
                       ypos: 450,
                       size: 10,
-                      color: color(255, 0, 0)
+                      color: color()
+                      level: 0
                     };
                     var sizeSnowflake = 10;
 
@@ -119,7 +120,8 @@
                         noStroke();
                         movePlayer();
                         drawPlayer();
-                      
+                        checkPlayer();
+
                         eat();
                         
                         fill(255);
@@ -185,6 +187,14 @@
                     }
 
                     var drawPlayer = function() {
+                      if (player.level == 0) {
+                        player.color = color(255, 0, 0);
+                      } else if (player.level == 1) {
+                        player.color = color(0, 0, 255);
+                      } else if (player.level == 2) {
+                        player.color = color(255, 255, 0);
+                      }
+
                       fill(player.color);
                       ellipse(player.xpos, player.ypos, player.size, player.size);
                     };
@@ -194,6 +204,12 @@
                       player.xpos = mouseX*500/CCanvas.clientWidth;
                       player.ypos = mouseY*500/CCanvas.clientHeight;
                     ;
+                    };
+
+                    var checkPlayer = function() {
+                      if (player.size >= 200) {
+                        levelUp();
+                      }
                     };
 
                     var eat = function() {
@@ -219,7 +235,18 @@
                       snowflake.size = random(0, sizeSnowflake);
                       snowflake.speed = random(2, 5);
                       snowflake.xspeed = random(-5, 5);
-                    };                    
+                    };  
+
+                    var levelUp = function() {
+                      if (player.level <= 2) {
+                        player.level += 1;
+                      }
+
+                      sizeSnowflake = 9.9;
+                      for (var i = 0; i < snowflake.length; i++) {
+                        reset(snowflake[i]);
+                      }
+                    };                  
                     }};  
                         
                     var canvas = document.getElementById("mycanvas"); 
