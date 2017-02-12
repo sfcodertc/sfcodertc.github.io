@@ -149,7 +149,18 @@
                         text("Reset", 200, 150);
 
                         if (!playing && collision(mouse, resetButton) && mouseClicked && resetButton.show == 1) {
-                          sizeSnowflake = 10;
+		                    player = {
+		                      xpos: 250,
+		                      ypos: 450,
+		                      size: 10,
+		                      color: color(),
+		                      level: 0
+		                    };
+                          sizeSnowflake = 9.9;
+
+                          for (var i = 0; i < snowflake.length; i++) {
+                          	reset(snowflake[i]);
+                          }
                           playing = true;
                         }
                       }
@@ -194,6 +205,10 @@
                         player.color = color(0, 0, 255);
                       } else if (player.level == 2) {
                         player.color = color(255, 255, 0);
+                      } else if (player.level == 3) {
+                      	player.color = color(255, 0, 255);
+                      } else if (player.level == 4) {
+                      	player.color = color(0, 255, 255);
                       }
 
                       fill(player.color);
@@ -243,6 +258,7 @@
                         player.level += 1;
                       }
 
+	                  player.size = 10;
                       sizeSnowflake = 9.9;
                       for (var i = 0; i < snowflake.length; i++) {
                         reset(snowflake[i]);
